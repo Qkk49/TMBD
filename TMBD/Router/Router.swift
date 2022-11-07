@@ -8,6 +8,7 @@ protocol RouterMain {
 protocol RouterProtocol: RouterMain {
     func initialViewController()
     func showMovie(trend: Int?)
+    func showSerial(popular: Int?)
     func popToRoot()
 }
 
@@ -32,6 +33,14 @@ class Router: RouterProtocol {
         if let navigationController = navigationController {
             guard let movieViewController = assemblyBuilder?.createMovieModule(trend: trend, router: self) else { return }
             navigationController.pushViewController(movieViewController, animated: false)
+            navigationController.isNavigationBarHidden = true
+        }
+    }
+    
+    func showSerial(popular: Int?) {
+        if let navigationController = navigationController {
+//            guard let movieViewController = assemblyBuilder?.createMovieModule(trend: trend, router: self) else { return }
+//            navigationController.pushViewController(movieViewController, animated: false)
             navigationController.isNavigationBarHidden = true
         }
     }

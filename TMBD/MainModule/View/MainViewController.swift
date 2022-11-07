@@ -180,7 +180,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             let trend = presenter.movies?.results[indexPath.row].id
             presenter.tapOnTheTrend(trend: trend)
         } else {
-            let trend = presenter.movies?.results[indexPath.row].id
+            let trend = presenter.movies?.results[indexPath.row].id //
             presenter.tapOnTheTrend(trend: trend)
         }
     }

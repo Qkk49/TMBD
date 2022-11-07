@@ -153,11 +153,4 @@ class MoviePresenter: MovieViewPresenterProtocol {
     func getCastCharacter(for indexpath : Int) -> String? {
         return casts?.cast[indexpath].character
     }
-    
-//    func goToWeb() -> URL{
-//        let mockID: Int = movie!.id
-//        let url = String(mockID)
-//        let URL = URL(string: "https://www.themoviedb.org/movie/" + url)!
-//        return URL
-//    }
 }

@@ -10,6 +10,7 @@ protocol MainViewPresenterProtocol: AnyObject {
     func getMovies()
     func getSerials()
     func tapOnTheTrend(trend: Int?)
+    func tapOnThePopular(popular: Int?)
     var movies: Trends? { get set }
     var serials: Populars? { get set }
     func getMoviePhotoUrl(for indexpath : Int) -> String?
@@ -67,6 +68,10 @@ class MainPresenter: MainViewPresenterProtocol {
     
     func tapOnTheTrend(trend: Int?) {
         router?.showMovie(trend: trend)
+    }
+    
+    func tapOnThePopular(popular: Int?) {
+        
     }
     
     func getMoviePhotoUrl(for indexpath : Int) -> String? {

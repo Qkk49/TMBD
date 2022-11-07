@@ -14,6 +14,9 @@
 		8A9617362915A21C000A9E00 /* CompilingURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9617352915A21C000A9E00 /* CompilingURL.swift */; };
 		8A9617382915ADE2000A9E00 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9617372915ADE2000A9E00 /* MovieModel.swift */; };
 		8AA47C8D2913E38C001177E6 /* MainMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA47C8C2913E38C001177E6 /* MainMovieCollectionViewCell.swift */; };
+		8AF1D967291931C5003E0381 /* SerialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1D966291931C5003E0381 /* SerialViewController.swift */; };
+		8AF1D96A2919322A003E0381 /* SerialPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1D9692919322A003E0381 /* SerialPresenter.swift */; };
+		8AF1D96C2919323B003E0381 /* SerialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF1D96B2919323B003E0381 /* SerialModel.swift */; };
 		8AFFA4C42911BC72009BC43A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA4C32911BC72009BC43A /* AppDelegate.swift */; };
 		8AFFA4C62911BC72009BC43A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA4C52911BC72009BC43A /* SceneDelegate.swift */; };
 		8AFFA4C82911BC72009BC43A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA4C72911BC72009BC43A /* MainViewController.swift */; };
@@ -57,6 +60,9 @@
 		8A9617352915A21C000A9E00 /* CompilingURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilingURL.swift; sourceTree = "<group>"; };
 		8A9617372915ADE2000A9E00 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		8AA47C8C2913E38C001177E6 /* MainMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		8AF1D966291931C5003E0381 /* SerialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialViewController.swift; sourceTree = "<group>"; };
+		8AF1D9692919322A003E0381 /* SerialPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialPresenter.swift; sourceTree = "<group>"; };
+		8AF1D96B2919323B003E0381 /* SerialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialModel.swift; sourceTree = "<group>"; };
 		8AFFA4C02911BC72009BC43A /* TMBD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMBD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AFFA4C32911BC72009BC43A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AFFA4C52911BC72009BC43A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +133,40 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8AF1D9652919318D003E0381 /* SerialModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1D9682919320A003E0381 /* View */,
+				8AF1D96D29193242003E0381 /* Presenter */,
+				8AF1D96E2919324D003E0381 /* Model */,
+			);
+			path = SerialModule;
+			sourceTree = "<group>";
+		};
+		8AF1D9682919320A003E0381 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1D966291931C5003E0381 /* SerialViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8AF1D96D29193242003E0381 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1D9692919322A003E0381 /* SerialPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		8AF1D96E2919324D003E0381 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8AF1D96B2919323B003E0381 /* SerialModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8AFFA4B72911BC72009BC43A = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +190,7 @@
 		8AFFA4C22911BC72009BC43A /* TMBD */ = {
 			isa = PBXGroup;
 			children = (
+				8AF1D9652919318D003E0381 /* SerialModule */,
 				8AFFA5012911C1FF009BC43A /* Source */,
 				8AFFA5022911C20B009BC43A /* Router */,
 				8AFFA5032911C21F009BC43A /* MainModule */,
@@ -510,9 +551,11 @@
 				8AFFA4C82911BC72009BC43A /* MainViewController.swift in Sources */,
 				8A3E3FF72914021E00803EA5 /* Extension.swift in Sources */,
 				8AFFA4C42911BC72009BC43A /* AppDelegate.swift in Sources */,
+				8AF1D96A2919322A003E0381 /* SerialPresenter.swift in Sources */,
 				8AFFA4FE2911C1AA009BC43A /* Router.swift in Sources */,
 				8AFFA4C62911BC72009BC43A /* SceneDelegate.swift in Sources */,
 				8AFFA50A2911DE56009BC43A /* CollectionModel.swift in Sources */,
+				8AF1D96C2919323B003E0381 /* SerialModel.swift in Sources */,
 				8AA47C8D2913E38C001177E6 /* MainMovieCollectionViewCell.swift in Sources */,
 				8AFFA5002911C1C5009BC43A /* AssemblyBuilder.swift in Sources */,
 				8AFFA4F42911C128009BC43A /* MovieViewController.swift in Sources */,
@@ -520,6 +563,7 @@
 				8A07B0EF2918829100AF3635 /* MainSerialCollectionViewCell.swift in Sources */,
 				8AFFA4FC2911C16A009BC43A /* MoviePresenter.swift in Sources */,
 				8A8D442E2917F7D8002AD4FD /* MovieCastCollectionViewCell.swift in Sources */,
+				8AF1D967291931C5003E0381 /* SerialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
