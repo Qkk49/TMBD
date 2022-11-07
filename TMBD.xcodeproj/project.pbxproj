@@ -190,11 +190,11 @@
 		8AFFA4C22911BC72009BC43A /* TMBD */ = {
 			isa = PBXGroup;
 			children = (
-				8AF1D9652919318D003E0381 /* SerialModule */,
 				8AFFA5012911C1FF009BC43A /* Source */,
 				8AFFA5022911C20B009BC43A /* Router */,
 				8AFFA5032911C21F009BC43A /* MainModule */,
 				8AFFA5042911C231009BC43A /* MovieModule */,
+				8AF1D9652919318D003E0381 /* SerialModule */,
 				8AFFA50E2911E084009BC43A /* NetworkLayer */,
 				8AFFA4CC2911BC74009BC43A /* Assets.xcassets */,
 				8AFFA4CE2911BC74009BC43A /* LaunchScreen.storyboard */,

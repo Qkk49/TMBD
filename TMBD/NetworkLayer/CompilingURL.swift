@@ -7,6 +7,7 @@ enum Section {
     case serials
     case movie (id: Int)
     case cast (id: Int)
+    case serial (id: Int)
     
     private var urlComponents: URL {
         var components = URLComponents()
@@ -29,6 +30,8 @@ enum Section {
         case .cast(id: let id):
             components.path = "/3/movie/" + String(id) + "/credits"
 //            components.queryItems = [URLQueryItem(name: "api_key", value: "a75972c63240b96a3ed54d0b53aad854")]
+        case .serial(id: let id):
+            components.path = "/3/movie/tv/" + String(id)
         }
         return components.url!
     }

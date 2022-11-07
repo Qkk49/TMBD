@@ -5,6 +5,7 @@ protocol NetworkServiceProtocol {
     func getSerials(completion: @escaping (Result<Populars?, Error>) -> Void)
     func getMovie(id: Int, completion: @escaping (Result<Movie?, Error>) -> Void)
     func getCast(id: Int, completion: @escaping (Result<Casts?, Error>) -> Void)
+    func getSerial(id: Int, completion: @escaping (Result<Serial?, Error>) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -69,6 +70,24 @@ class NetworkService: NetworkServiceProtocol {
 
             do {
                 let obj = try JSONDecoder().decode(Casts.self, from: data!)
+                completion(.success(obj))
+            } catch {
+                completion(.failure(error))
+                print("aaaa")
+            }
+        }.resume()
+    }
+    
+    func getSerial(id: Int, completion: @escaping (Result<Serial?, Error>) -> Void) {
+        URLSession.shared.dataTask(with: Section.serial(id: id).URLrequest) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                //print("Fetch failed: \(error.localizedDescription ?? "Unknown error")")
+                return
+            }
+
+            do {
+                let obj = try JSONDecoder().decode(Serial.self, from: data!)
                 completion(.success(obj))
             } catch {
                 completion(.failure(error))
