@@ -1,0 +1,20 @@
+PODS:
+  - Cosmos (23.0.0)
+  - Kingfisher (7.4.1)
+
+DEPENDENCIES:
+  - Cosmos
+  - Kingfisher
+
+SPEC REPOS:
+  trunk:
+    - Cosmos
+    - Kingfisher
+
+SPEC CHECKSUMS:
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
+  Kingfisher: cd762a593a61b2fbecf7645c00f9a801a3ebfc9c
+
+PODFILE CHECKSUM: e9a75ad7fc6a5176a4f1984e90da5ebd566da3a2
+
+COCOAPODS: 1.11.3
