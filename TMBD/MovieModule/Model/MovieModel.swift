@@ -10,11 +10,9 @@ struct Movie: Decodable {
     var title: String
     var release_date: String
     var original_title: String
-//    var id: Int
 }
 
 struct Geners: Decodable {
-//    var id: Int
     var name: String
 }
 

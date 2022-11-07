@@ -22,12 +22,14 @@ protocol MainViewPresenterProtocol: AnyObject {
 }
 
 class MainPresenter: MainViewPresenterProtocol {
+    //MARK: - Property
     weak var view: MainViewProtocol?
     var router: RouterProtocol?
     let networkService: NetworkServiceProtocol!
     var movies: Trends?
     var serials: Populars?
     
+    //MARK: - Init
     required init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol) {
         self.view = view
         self.networkService = networkService
@@ -36,6 +38,7 @@ class MainPresenter: MainViewPresenterProtocol {
         getSerials()
     }
     
+    //MARK: - Get Models
     func getSerials() {
         networkService.getSerials { [weak self] result in
             guard let self = self else { return }
@@ -66,14 +69,16 @@ class MainPresenter: MainViewPresenterProtocol {
         }
     }
     
+    //MARK: - Go to next Module
     func tapOnTheTrend(trend: Int?) {
         router?.showMovie(trend: trend)
     }
     
     func tapOnThePopular(popular: Int?) {
-        
+        router?.showSerial(popular: popular)
     }
     
+    //MARK: - Get model property
     func getMoviePhotoUrl(for indexpath : Int) -> String? {
         return "https://image.tmdb.org/t/p/original" + (movies?.results[indexpath].poster_path)!
     }

@@ -39,8 +39,8 @@ class Router: RouterProtocol {
     
     func showSerial(popular: Int?) {
         if let navigationController = navigationController {
-//            guard let movieViewController = assemblyBuilder?.createMovieModule(trend: trend, router: self) else { return }
-//            navigationController.pushViewController(movieViewController, animated: false)
+            guard let serialViewController = assemblyBuilder?.createSerialModule(popular: popular, router: self) else { return }
+            navigationController.pushViewController(serialViewController, animated: false)
             navigationController.isNavigationBarHidden = true
         }
     }

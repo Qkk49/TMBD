@@ -26,8 +26,8 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
     func createSerialModule(popular: Int?, router: RouterProtocol) -> UIViewController {
         let view = SerialViewController()
         let nerworkService = NetworkService()
-//        let presenter = MoviePresenter(view: view, networkService: nerworkService, router: router, trend: trend)
-//        view.presenter = presenter
+        let presenter = SerialPresenter(view: view, networkService: nerworkService, router: router, popular: popular)
+        view.presenter = presenter
         return view
     }
 }

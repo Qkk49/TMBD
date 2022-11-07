@@ -1,6 +1,6 @@
 import UIKit
 
-final class MovieCastCollectionViewCell: UICollectionViewCell {
+final class SerialCastCollectionViewCell: UICollectionViewCell {
     //MARK: - Property
     static let identifire = "CastCell"
     

@@ -34,7 +34,6 @@ final class MainMovieCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - LayoutSubviews
-        
     override func layoutSubviews() {
         super.layoutSubviews()
         addConstraint()

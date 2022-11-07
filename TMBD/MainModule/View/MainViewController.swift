@@ -56,7 +56,6 @@ final class MainViewController: UIViewController {
     }
     
     //MARK: - addView(delegate/view property)
-        
     private func addViews() {
         view.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.43)
         view.addSubviews(titleLabel, titleMovieCollectionLabel, movieCollectionView, titleSerialCollectionLabel, serialCollectionView)
@@ -67,7 +66,6 @@ final class MainViewController: UIViewController {
     }
     
     //MARK: - Constraints
-        
     private func addConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -91,6 +89,7 @@ final class MainViewController: UIViewController {
         ])
     }
     
+    //MARK: - Create Layouts
     private func createMovieLayout() {
         let spacing: CGFloat = 10
         let itemSize = NSCollectionLayoutSize(
@@ -138,6 +137,7 @@ final class MainViewController: UIViewController {
     }
 }
 
+//MARK: - Collection DataSource, Delegate
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.movieCollectionView {
@@ -180,8 +180,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             let trend = presenter.movies?.results[indexPath.row].id
             presenter.tapOnTheTrend(trend: trend)
         } else {
-            let trend = presenter.movies?.results[indexPath.row].id //
-            presenter.tapOnTheTrend(trend: trend)
+            let popular = presenter.serials?.results[indexPath.row].id
+            presenter.tapOnThePopular(popular: popular)
         }
     }
 }

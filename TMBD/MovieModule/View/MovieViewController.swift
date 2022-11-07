@@ -3,6 +3,8 @@ import Kingfisher
 import Cosmos
 
 class MovieViewController: UIViewController {
+    
+    //MARK: - Property
     var presenter: MovieViewPresenterProtocol!
     
     var mainImage: UIImageView = {
@@ -93,12 +95,14 @@ class MovieViewController: UIViewController {
         return webButton
     }()
     
+    //MARK: - LoadView
     override func loadView() {
         super.loadView()
         presenter.getThisMovie(id: presenter.trend!)
         presenter.getThisCast(id: presenter.trend!)
     }
 
+    //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.43)
@@ -109,6 +113,7 @@ class MovieViewController: UIViewController {
         movieCastCollectionView.dataSource = self
     }
     
+    //MARK: - Create Layout
     private func createLayout() {
         let spacing: CGFloat = 10
         let itemSize = NSCollectionLayoutSize(
@@ -132,6 +137,7 @@ class MovieViewController: UIViewController {
         movieCastCollectionView.collectionViewLayout = layout
     }
     
+    //MARK: - Constraints
     private func addConstraints() {
         NSLayoutConstraint.activate([
             mainImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -188,6 +194,7 @@ class MovieViewController: UIViewController {
     }
 }
 
+//MARK: - Collection DataSource
 extension MovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return min(10, presenter.casts?.cast.count ?? 0)
@@ -210,11 +217,11 @@ extension MovieViewController: UICollectionViewDataSource {
 
 extension MovieViewController: MovieViewProtocol {
     func success() {
-        mainImage.kf.setImage(with: URL(string: presenter.getBackImageMovie(0)!))
+        mainImage.kf.setImage(with: URL(string: presenter.getBackImageMovie()!))
         movieNameLabel.text = presenter.movie?.original_title
-        movieInfoLabel.text = presenter.getYearMovie(0) + "\u{272F}" + presenter.getGanrMovie(for: 0) + "\u{272F}" + presenter.getRuntimeMovie(0)
-        movieTextRating.text = presenter.getRatingTextMovie(0)
-        movieStarRating.rating = presenter.getRatingStarMovie(0)
+        movieInfoLabel.text = presenter.getYearMovie() + "\u{272F}" + presenter.getGanrMovie(for: 0) + "\u{272F}" + presenter.getRuntimeMovie()
+        movieTextRating.text = presenter.getRatingTextMovie()
+        movieStarRating.rating = presenter.getRatingStarMovie()
         movieOverview.text = presenter.movie?.overview
         movieCastCollectionView.reloadData()
     }

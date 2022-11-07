@@ -34,7 +34,6 @@ class MainSerialCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - LayoutSubviews
-        
     override func layoutSubviews() {
         super.layoutSubviews()
         addConstraint()

@@ -7,27 +7,26 @@ protocol MovieViewProtocol: AnyObject {
 
 protocol MovieViewPresenterProtocol: AnyObject {
     init(view: MovieViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, trend: Int?)
-    func getThisMovie(id: Int)
-    func getThisCast(id: Int)
     var movie: Movie? { get set }
     var trend: Int? { get set }
     var casts: Casts? { get set }
+    func getThisMovie(id: Int)
+    func getThisCast(id: Int)
     func tap()
-    func getBackImageMovie(_: Int) -> String?
-    func getYearMovie(_: Int) -> String
+    func getBackImageMovie() -> String?
+    func getYearMovie() -> String
     func getGanrMovie(for indexpath : Int) -> String
-    func getRuntimeMovie(_: Int) -> String
-    func getRatingTextMovie(_: Int) -> String
-    func getRatingStarMovie(_: Int) -> Double
+    func getRuntimeMovie() -> String
+    func getRatingTextMovie() -> String
+    func getRatingStarMovie() -> Double
     func getCastURL(for indexpath : Int) -> String?
     func getCastName(for indexpath : Int) -> String?
     func getCastCharacter(for indexpath : Int) -> String?
-//    func goToWeb() -> URL
 }
 
 class MoviePresenter: MovieViewPresenterProtocol {
    
-    
+    //MARK: - Property
     weak var view: MovieViewProtocol?
     var router: RouterProtocol?
     let networkService: NetworkServiceProtocol!
@@ -35,7 +34,7 @@ class MoviePresenter: MovieViewPresenterProtocol {
     var movie: Movie?
     var casts: Casts?
     
-    
+    //MARK: - Init
     required init(view: MovieViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, trend: Int?) {
         self.view = view
         self.networkService = networkService
@@ -43,6 +42,7 @@ class MoviePresenter: MovieViewPresenterProtocol {
         self.trend = trend
     }
     
+    //MARK: - Get Models
     func getThisMovie(id: Int) {
         networkService.getMovie(id: trend!) { [weak self] result in
             guard let self = self else {return}
@@ -73,11 +73,13 @@ class MoviePresenter: MovieViewPresenterProtocol {
         }
     }
     
+    //MARK: - Navigation root
     func tap() {
         router?.popToRoot()
     }
     
-    func getBackImageMovie(_: Int) -> String? {
+    //MARK: - Get model property
+    func getBackImageMovie() -> String? {
         let url = movie?.backdrop_path
         if url == nil {
             return "https://image.tmdb.org/t/p/original/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
@@ -86,17 +88,19 @@ class MoviePresenter: MovieViewPresenterProtocol {
         }
     }
     
-    func getYearMovie(_: Int) -> String {
-        if let releaseDate = movie?.release_date {
-            let mockDict = releaseDate
+    func getYearMovie() -> String {
+        let releaseDate = movie?.release_date
+        if releaseDate == nil {
+            return "123"
+        } else {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dataDate = dateFormatter.date(from: mockDict)!
+            let dataDate = dateFormatter.date(from: releaseDate!)
             
             dateFormatter.dateFormat = "yyyy"
-            let newStringDate = dateFormatter.string(from: dataDate)
+            let newStringDate = dateFormatter.string(from: dataDate!)
             return newStringDate
-        } else { return "123" }
+        }
     }
     
     func getGanrMovie(for indexpath : Int) -> String {
@@ -112,29 +116,35 @@ class MoviePresenter: MovieViewPresenterProtocol {
         } else { return "123" }
     }
     
-    func getRuntimeMovie(_: Int) -> String {
-        if movie?.runtime != nil {
-            let mockTime = movie!.runtime
-            let hour = mockTime / 60 % 60
-            let minute = mockTime % 60
+    func getRuntimeMovie() -> String {
+        let mockTime = movie?.runtime
+        if mockTime == nil {
+            return "123"
+        } else {
+            let hour = mockTime! / 60 % 60
+            let minute = mockTime! % 60
             return String(format: "\(hour) h \(minute) min")
-        } else { return "123" }
+        }
     }
     
-    func getRatingTextMovie(_: Int) -> String {
-        if movie?.vote_average != nil {
-            let mockRating = movie!.vote_average
-            let result = NSString(format:"%.1f", mockRating)
+    func getRatingTextMovie() -> String {
+        let mockRating = movie?.vote_average
+        if mockRating == nil {
+            return "123"
+        } else {
+            let result = NSString(format:"%.1f", mockRating!)
             return String(describing: result)
-        } else { return "123" }
+        }
     }
     
-    func getRatingStarMovie(_: Int) -> Double {
-        if movie?.vote_average != nil {
-            let mockRating = movie!.vote_average
-            let result = mockRating / 2
+    func getRatingStarMovie() -> Double {
+        let mockRating = movie?.vote_average
+        if mockRating == nil {
+            return 123.0
+        } else {
+            let result = mockRating! / 2
             return result
-        } else { return 123.0 }
+        }
     }
     
     func getCastURL(for indexpath : Int) -> String? {

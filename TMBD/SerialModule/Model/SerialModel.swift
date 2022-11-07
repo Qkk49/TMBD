@@ -7,10 +7,18 @@ struct Serial: Decodable {
     var vote_average: Double
     var first_air_date: String
     var original_name: String
-//    var id: Int
 }
 
 struct Ganers: Decodable {
-//    var id: Int
+    var name: String
+}
+
+struct Caststv: Decodable {
+    var cast: [Casttv]
+}
+
+struct Casttv: Decodable {
+    var profile_path: String?
+    var character: String
     var name: String
 }
