@@ -22,9 +22,8 @@ final class MainViewController: UIViewController {
         return movieCollectionLabel
     }()
     
-    private var movieCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let movieView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private lazy var movieCollectionView: UICollectionView = {
+        let movieView = UICollectionView(frame: .zero, collectionViewLayout: createMovieLayout())
         movieView.register(MainMovieCollectionViewCell.self, forCellWithReuseIdentifier: MainMovieCollectionViewCell.identifire)
         movieView.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.0)
         return movieView
@@ -51,7 +50,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         addViews()
         addConstraints()
-        createMovieLayout()
         createSerialLayout()
     }
     
@@ -90,7 +88,7 @@ final class MainViewController: UIViewController {
     }
     
     //MARK: - Create Layouts
-    private func createMovieLayout() {
+    private func createMovieLayout() -> UICollectionViewCompositionalLayout {
         let spacing: CGFloat = 10
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -110,7 +108,7 @@ final class MainViewController: UIViewController {
         section.orthogonalScrollingBehavior = .continuous
 
         let layout = UICollectionViewCompositionalLayout(section: section)
-        movieCollectionView.collectionViewLayout = layout
+        return layout
     }
     
     private func createSerialLayout() {

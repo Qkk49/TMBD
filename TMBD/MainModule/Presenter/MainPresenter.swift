@@ -80,7 +80,7 @@ class MainPresenter: MainViewPresenterProtocol {
     
     //MARK: - Get model property
     func getMoviePhotoUrl(for indexpath : Int) -> String? {
-        return "https://image.tmdb.org/t/p/original" + (movies?.results[indexpath].poster_path)!
+        return "https://image.tmdb.org/t/p/w154" + (movies?.results[indexpath].poster_path)!
     }
     func getMovieTitle(for indexpath : Int) -> String? {
         return movies?.results[indexpath].original_title
@@ -98,7 +98,7 @@ class MainPresenter: MainViewPresenterProtocol {
     }
     
     func getSerialPhotoUrl(for indexpath : Int) -> String? {
-        return "https://image.tmdb.org/t/p/original" + (serials?.results[indexpath].poster_path)!
+        return "https://image.tmdb.org/t/p/w154" + (serials?.results[indexpath].poster_path)!
     }
     func getSerialTitle(for indexpath : Int) -> String? {
         return serials?.results[indexpath].name

@@ -1,7 +1,7 @@
 import Foundation
 
 
-//MARK: - Generate URL(RandomPhoto module)
+//MARK: - Generate URL
 enum Section {
     case movies
     case serials
@@ -38,7 +38,7 @@ enum Section {
         return components.url!
     }
     
-    //MARK: - Generate URL(RandomPhoto module)
+    //MARK: - Generate URL
     
     var URLrequest: URLRequest {
         var request = URLRequest(url: urlComponents)
