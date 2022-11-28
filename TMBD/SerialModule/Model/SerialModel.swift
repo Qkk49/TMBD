@@ -12,13 +12,3 @@ struct Serial: Decodable {
 struct Ganers: Decodable {
     var name: String
 }
-
-struct Caststv: Decodable {
-    var cast: [Casttv]
-}
-
-struct Casttv: Decodable {
-    var profile_path: String?
-    var character: String
-    var name: String
-}

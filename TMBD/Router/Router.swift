@@ -25,7 +25,7 @@ class Router: RouterProtocol {
         if let navigationController = navigationController {
             guard let mainViewController = assemblyBuilder?.createMainModule(router: self) else { return }
             navigationController.viewControllers = [mainViewController]
-            navigationController.isNavigationBarHidden = true
+//            navigationController.isNavigationBarHidden = true
         }
     }
 
@@ -33,7 +33,7 @@ class Router: RouterProtocol {
         if let navigationController = navigationController {
             guard let movieViewController = assemblyBuilder?.createMovieModule(trend: trend, router: self) else { return }
             navigationController.pushViewController(movieViewController, animated: false)
-            navigationController.isNavigationBarHidden = true
+//            navigationController.isNavigationBarHidden = true
         }
     }
     
@@ -41,7 +41,7 @@ class Router: RouterProtocol {
         if let navigationController = navigationController {
             guard let serialViewController = assemblyBuilder?.createSerialModule(popular: popular, router: self) else { return }
             navigationController.pushViewController(serialViewController, animated: false)
-            navigationController.isNavigationBarHidden = true
+//            navigationController.isNavigationBarHidden = true
         }
     }
     

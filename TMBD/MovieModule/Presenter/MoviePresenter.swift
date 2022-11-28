@@ -59,7 +59,7 @@ class MoviePresenter: MovieViewPresenterProtocol {
     }
     
     func getThisCast(id: Int) {
-        networkService.getCast(id: trend!) { [weak self] result in
+        networkService.getCast(type: "movie/", id: trend!) { [weak self] result in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result {

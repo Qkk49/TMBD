@@ -197,7 +197,7 @@ class SerialViewController: UIViewController {
 //MARK: - Collection DataSource
 extension SerialViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(10, presenter.caststv?.cast.count ?? 0)
+        return min(10, presenter.casts?.cast.count ?? 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -9,7 +9,7 @@ protocol SerialViewPresenterProtocol: AnyObject {
     init(view: SerialViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, popular: Int?)
     var serial: Serial? { get set }
     var popular: Int? { get set }
-    var caststv: Caststv? { get set }
+    var casts: Casts? { get set }
     func getThisSerial(id: Int)
     func getThisCastTv(id: Int)
     func tap()
@@ -30,7 +30,7 @@ class SerialPresenter: SerialViewPresenterProtocol {
     let networkService: NetworkServiceProtocol!
     var popular: Int?
     var serial: Serial?
-    var caststv: Caststv?
+    var casts: Casts?
     
     //MARK: - Init
     required init(view: SerialViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, popular: Int?) {
@@ -57,12 +57,12 @@ class SerialPresenter: SerialViewPresenterProtocol {
     }
     
     func getThisCastTv(id: Int) {
-        networkService.getCastTv(id: popular!) { [weak self] result in
+        networkService.getCast(type: "tv/", id: popular!) { [weak self] result in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 switch result {
-                case .success(let caststv):
-                    self.caststv = caststv
+                case .success(let casts):
+                    self.casts = casts
                     self.view?.success()
                 case .failure(let error):
                     self.view?.failure(error: error)
@@ -135,7 +135,7 @@ class SerialPresenter: SerialViewPresenterProtocol {
     }
 
     func getCastTvURL(for indexpath : Int) -> String? {
-        let url = caststv?.cast[indexpath].profile_path
+        let url = casts?.cast[indexpath].profile_path
         if url == nil {
             return "https://image.tmdb.org/t/p/original/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
         } else {
@@ -144,10 +144,10 @@ class SerialPresenter: SerialViewPresenterProtocol {
     }
 
     func getCastTvName(for indexpath : Int) -> String? {
-        return caststv?.cast[indexpath].name
+        return casts?.cast[indexpath].name
     }
 
     func getCastTvCharacter(for indexpath : Int) -> String? {
-        return caststv?.cast[indexpath].character
+        return casts?.cast[indexpath].character
     }
 }
