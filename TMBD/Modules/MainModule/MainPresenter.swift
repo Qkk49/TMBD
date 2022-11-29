@@ -6,7 +6,7 @@ protocol MainViewProtocol: AnyObject {
 }
 
 protocol MainViewPresenterProtocol: AnyObject {
-    init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol)
+    init(view: MainViewProtocol, networkService: NetworkServiceMainProtocol, router: RouterProtocol)
     func getMovies()
     func getSerials()
     func tapOnTheTrend(trend: Int?)
@@ -25,12 +25,12 @@ class MainPresenter: MainViewPresenterProtocol {
     //MARK: - Property
     weak var view: MainViewProtocol?
     var router: RouterProtocol?
-    let networkService: NetworkServiceProtocol!
+    let networkService: NetworkServiceMainProtocol!
     var movies: Trends?
     var serials: Populars?
     
     //MARK: - Init
-    required init(view: MainViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol) {
+    required init(view: MainViewProtocol, networkService: NetworkServiceMainProtocol, router: RouterProtocol) {
         self.view = view
         self.networkService = networkService
         self.router = router
@@ -39,13 +39,13 @@ class MainPresenter: MainViewPresenterProtocol {
     }
     
     //MARK: - Get Models
-    func getSerials() {
-        networkService.getSerials { [weak self] result in
+    func getMovies() {
+        networkService.getMovies { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
-                case .success(let serials):
-                    self.serials = serials
+                case .success(let movies):
+                    self.movies = movies
                     self.view?.success()
                 case .failure(let error):
                     self.view?.failure(error: error)
@@ -54,13 +54,13 @@ class MainPresenter: MainViewPresenterProtocol {
         }
     }
     
-    func getMovies() {
-        networkService.getMovies { [weak self] result in
+    func getSerials() {
+        networkService.getSerials { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
-                case .success(let movies):
-                    self.movies = movies
+                case .success(let serials):
+                    self.serials = serials
                     self.view?.success()
                 case .failure(let error):
                     self.view?.failure(error: error)
@@ -79,14 +79,14 @@ class MainPresenter: MainViewPresenterProtocol {
     }
     
     //MARK: - Get model property
-    func getMoviePhotoUrl(for indexpath : Int) -> String? {
+    func getMoviePhotoUrl(for indexpath: Int) -> String? {
         return "https://image.tmdb.org/t/p/w154" + (movies?.results[indexpath].poster_path)!
     }
-    func getMovieTitle(for indexpath : Int) -> String? {
+    func getMovieTitle(for indexpath: Int) -> String? {
         return movies?.results[indexpath].original_title
     }
     
-    func getMovieData(for indexpath : Int) -> String? {
+    func getMovieData(for indexpath: Int) -> String? {
         let mockDict = movies?.results[indexpath].release_date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -97,14 +97,14 @@ class MainPresenter: MainViewPresenterProtocol {
         return newStringDate
     }
     
-    func getSerialPhotoUrl(for indexpath : Int) -> String? {
+    func getSerialPhotoUrl(for indexpath: Int) -> String? {
         return "https://image.tmdb.org/t/p/w154" + (serials?.results[indexpath].poster_path)!
     }
-    func getSerialTitle(for indexpath : Int) -> String? {
+    func getSerialTitle(for indexpath: Int) -> String? {
         return serials?.results[indexpath].name
     }
     
-    func getSerialData(for indexpath : Int) -> String? {
+    func getSerialData(for indexpath: Int) -> String? {
         let mockDict = serials?.results[indexpath].first_air_date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

@@ -9,7 +9,7 @@ protocol AssemblyBuilderProtocol {
 class AssemblyBuilder: AssemblyBuilderProtocol {
     func createMainModule(router: RouterProtocol) -> UIViewController {
         let view = MainViewController()
-        let networkService = NetworkService()
+        let networkService = NetworkServiceMain()
         let presenter = MainPresenter(view: view, networkService: networkService, router: router)
         view.presenter = presenter
         return view
@@ -17,7 +17,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
     
     func createMovieModule(trend: Int?, router: RouterProtocol) -> UIViewController {
         let view = MovieViewController()
-        let nerworkService = NetworkService()
+        let nerworkService = NetworkServiceDetail()
         let presenter = MoviePresenter(view: view, networkService: nerworkService, router: router, trend: trend)
         view.presenter = presenter
         return view
@@ -25,7 +25,7 @@ class AssemblyBuilder: AssemblyBuilderProtocol {
     
     func createSerialModule(popular: Int?, router: RouterProtocol) -> UIViewController {
         let view = SerialViewController()
-        let nerworkService = NetworkService()
+        let nerworkService = NetworkServiceDetail()
         let presenter = SerialPresenter(view: view, networkService: nerworkService, router: router, popular: popular)
         view.presenter = presenter
         return view

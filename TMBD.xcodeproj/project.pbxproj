@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8A07B0EF2918829100AF3635 /* MainSerialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A07B0EE2918829100AF3635 /* MainSerialCollectionViewCell.swift */; };
-		8A3E3FF72914021E00803EA5 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E3FF62914021E00803EA5 /* Extension.swift */; };
+		8A3E3FF72914021E00803EA5 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E3FF62914021E00803EA5 /* Extension+UIView.swift */; };
 		8A467E9629145E5C009492E1 /* Pods_TMBD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932EAC04E091C43224FA4F77 /* Pods_TMBD.framework */; };
+		8A8B00A62935D51C0083E3F4 /* NetworkServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B00A52935D51C0083E3F4 /* NetworkServiceDetail.swift */; };
+		8A8B00A82935DDC60083E3F4 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B00A72935DDC60083E3F4 /* Extension+Date.swift */; };
 		8A8D442E2917F7D8002AD4FD /* MovieCastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8D442D2917F7D8002AD4FD /* MovieCastCollectionViewCell.swift */; };
 		8A9617362915A21C000A9E00 /* CompilingURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9617352915A21C000A9E00 /* CompilingURL.swift */; };
 		8A9617382915ADE2000A9E00 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9617372915ADE2000A9E00 /* MovieModel.swift */; };
@@ -29,7 +31,7 @@
 		8AFFA4FE2911C1AA009BC43A /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA4FD2911C1AA009BC43A /* Router.swift */; };
 		8AFFA5002911C1C5009BC43A /* AssemblyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA4FF2911C1C5009BC43A /* AssemblyBuilder.swift */; };
 		8AFFA50A2911DE56009BC43A /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA5092911DE56009BC43A /* CollectionModel.swift */; };
-		8AFFA50D2911E06A009BC43A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA50C2911E06A009BC43A /* NetworkService.swift */; };
+		8AFFA50D2911E06A009BC43A /* NetworkServiceMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFA50C2911E06A009BC43A /* NetworkServiceMain.swift */; };
 		C9B40F2C3C713F1F09A9A2A6 /* Pods_TMBD_TMBDUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C199D5E2F004D20F1BE79506 /* Pods_TMBD_TMBDUITests.framework */; };
 		F2CC49683CDF06AA9F7FB8FE /* Pods_TMBDTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F12723D88F631FAA9BD47450 /* Pods_TMBDTests.framework */; };
 /* End PBXBuildFile section */
@@ -56,7 +58,9 @@
 		7671083DCE21AE6830ADAFF0 /* Pods-TMBD-TMBDUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMBD-TMBDUITests.debug.xcconfig"; path = "Target Support Files/Pods-TMBD-TMBDUITests/Pods-TMBD-TMBDUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7D23FB515EF8CFF23E1A12E8 /* Pods-TMBD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMBD.debug.xcconfig"; path = "Target Support Files/Pods-TMBD/Pods-TMBD.debug.xcconfig"; sourceTree = "<group>"; };
 		8A07B0EE2918829100AF3635 /* MainSerialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSerialCollectionViewCell.swift; sourceTree = "<group>"; };
-		8A3E3FF62914021E00803EA5 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		8A3E3FF62914021E00803EA5 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		8A8B00A52935D51C0083E3F4 /* NetworkServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceDetail.swift; sourceTree = "<group>"; };
+		8A8B00A72935DDC60083E3F4 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		8A8D442D2917F7D8002AD4FD /* MovieCastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCastCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A9617352915A21C000A9E00 /* CompilingURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilingURL.swift; sourceTree = "<group>"; };
 		8A9617372915ADE2000A9E00 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
@@ -80,7 +84,7 @@
 		8AFFA4FD2911C1AA009BC43A /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8AFFA4FF2911C1C5009BC43A /* AssemblyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilder.swift; sourceTree = "<group>"; };
 		8AFFA5092911DE56009BC43A /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
-		8AFFA50C2911E06A009BC43A /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		8AFFA50C2911E06A009BC43A /* NetworkServiceMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMain.swift; sourceTree = "<group>"; };
 		932EAC04E091C43224FA4F77 /* Pods_TMBD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMBD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B093489B7C9308E8D98417BB /* Pods-TMBD-TMBDUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMBD-TMBDUITests.release.xcconfig"; path = "Target Support Files/Pods-TMBD-TMBDUITests/Pods-TMBD-TMBDUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C199D5E2F004D20F1BE79506 /* Pods_TMBD_TMBDUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMBD_TMBDUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,20 +131,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8A9617392915ADE8000A9E00 /* Model */ = {
+		8A8B00A42935D2C10083E3F4 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				8A9617372915ADE2000A9E00 /* MovieModel.swift */,
+				8AFFA5032911C21F009BC43A /* MainModule */,
+				8AFFA5042911C231009BC43A /* MovieModule */,
+				8AF1D9652919318D003E0381 /* SerialModule */,
 			);
-			path = Model;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		8AF1D9652919318D003E0381 /* SerialModule */ = {
 			isa = PBXGroup;
 			children = (
 				8AF1D9682919320A003E0381 /* View */,
-				8AF1D96D29193242003E0381 /* Presenter */,
-				8AF1D96E2919324D003E0381 /* Model */,
+				8AF1D9692919322A003E0381 /* SerialPresenter.swift */,
+				8AF1D96B2919323B003E0381 /* SerialModel.swift */,
 			);
 			path = SerialModule;
 			sourceTree = "<group>";
@@ -152,22 +158,6 @@
 				8AF1D98F29198C19003E0381 /* SerialCastCollectionViewCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		8AF1D96D29193242003E0381 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				8AF1D9692919322A003E0381 /* SerialPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		8AF1D96E2919324D003E0381 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8AF1D96B2919323B003E0381 /* SerialModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		8AF1D991291993A3003E0381 /* Base */ = {
@@ -182,7 +172,8 @@
 		8AF1D992291993BA003E0381 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				8A3E3FF62914021E00803EA5 /* Extension.swift */,
+				8A3E3FF62914021E00803EA5 /* Extension+UIView.swift */,
+				8A8B00A72935DDC60083E3F4 /* Extension+Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -212,9 +203,7 @@
 			children = (
 				8AFFA5012911C1FF009BC43A /* Source */,
 				8AFFA5022911C20B009BC43A /* Router */,
-				8AFFA5032911C21F009BC43A /* MainModule */,
-				8AFFA5042911C231009BC43A /* MovieModule */,
-				8AF1D9652919318D003E0381 /* SerialModule */,
+				8A8B00A42935D2C10083E3F4 /* Modules */,
 				8AFFA50E2911E084009BC43A /* NetworkLayer */,
 				8AF1D991291993A3003E0381 /* Base */,
 				8AF1D992291993BA003E0381 /* Extension */,
@@ -245,8 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				8AFFA5062911C257009BC43A /* View */,
-				8AFFA5052911C23E009BC43A /* Presenter */,
-				8AFFA50B2911DE6A009BC43A /* Model */,
+				8AFFA4F92911C160009BC43A /* MainPresenter.swift */,
+				8AFFA5092911DE56009BC43A /* CollectionModel.swift */,
 			);
 			path = MainModule;
 			sourceTree = "<group>";
@@ -255,18 +244,10 @@
 			isa = PBXGroup;
 			children = (
 				8AFFA5072911C25F009BC43A /* View */,
-				8AFFA5082911C265009BC43A /* Presenter */,
-				8A9617392915ADE8000A9E00 /* Model */,
+				8AFFA4FB2911C16A009BC43A /* MoviePresenter.swift */,
+				8A9617372915ADE2000A9E00 /* MovieModel.swift */,
 			);
 			path = MovieModule;
-			sourceTree = "<group>";
-		};
-		8AFFA5052911C23E009BC43A /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				8AFFA4F92911C160009BC43A /* MainPresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		8AFFA5062911C257009BC43A /* View */ = {
@@ -288,26 +269,11 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8AFFA5082911C265009BC43A /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				8AFFA4FB2911C16A009BC43A /* MoviePresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		8AFFA50B2911DE6A009BC43A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8AFFA5092911DE56009BC43A /* CollectionModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		8AFFA50E2911E084009BC43A /* NetworkLayer */ = {
 			isa = PBXGroup;
 			children = (
-				8AFFA50C2911E06A009BC43A /* NetworkService.swift */,
+				8AFFA50C2911E06A009BC43A /* NetworkServiceMain.swift */,
+				8A8B00A52935D51C0083E3F4 /* NetworkServiceDetail.swift */,
 				8A9617352915A21C000A9E00 /* CompilingURL.swift */,
 			);
 			path = NetworkLayer;
@@ -565,10 +531,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A9617382915ADE2000A9E00 /* MovieModel.swift in Sources */,
-				8AFFA50D2911E06A009BC43A /* NetworkService.swift in Sources */,
+				8AFFA50D2911E06A009BC43A /* NetworkServiceMain.swift in Sources */,
+				8A8B00A62935D51C0083E3F4 /* NetworkServiceDetail.swift in Sources */,
 				8AFFA4FA2911C160009BC43A /* MainPresenter.swift in Sources */,
 				8AFFA4C82911BC72009BC43A /* MainViewController.swift in Sources */,
-				8A3E3FF72914021E00803EA5 /* Extension.swift in Sources */,
+				8A8B00A82935DDC60083E3F4 /* Extension+Date.swift in Sources */,
+				8A3E3FF72914021E00803EA5 /* Extension+UIView.swift in Sources */,
 				8AFFA4C42911BC72009BC43A /* AppDelegate.swift in Sources */,
 				8AF1D96A2919322A003E0381 /* SerialPresenter.swift in Sources */,
 				8AFFA4FE2911C1AA009BC43A /* Router.swift in Sources */,
