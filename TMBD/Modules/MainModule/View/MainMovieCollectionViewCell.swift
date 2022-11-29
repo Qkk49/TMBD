@@ -40,7 +40,7 @@ final class MainMovieCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Constraints
-    func addConstraint() {
+    private func addConstraint() {
         NSLayoutConstraint.activate([
             movieImageView.topAnchor.constraint(equalTo: self.topAnchor),
             movieImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -52,7 +52,7 @@ final class MainMovieCollectionViewCell: UICollectionViewCell {
             movieTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             movieTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            movieDataLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 2),
+            movieDataLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor),
             movieDataLabel.centerXAnchor.constraint(equalTo: movieImageView.centerXAnchor),
             movieDataLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             movieDataLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)

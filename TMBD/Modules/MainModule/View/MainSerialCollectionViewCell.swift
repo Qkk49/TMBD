@@ -1,6 +1,6 @@
 import UIKit
 
-class MainSerialCollectionViewCell: UICollectionViewCell {
+final class MainSerialCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Property
     static let identifire = "SerialCell"
@@ -40,7 +40,7 @@ class MainSerialCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Constraints
-    func addConstraint() {
+    private func addConstraint() {
         NSLayoutConstraint.activate([
             serialImageView.topAnchor.constraint(equalTo: self.topAnchor),
             serialImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -52,7 +52,7 @@ class MainSerialCollectionViewCell: UICollectionViewCell {
             serialTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             serialTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            serialDataLabel.topAnchor.constraint(equalTo: serialTitleLabel.bottomAnchor, constant: 2),
+            serialDataLabel.topAnchor.constraint(equalTo: serialTitleLabel.bottomAnchor),
             serialDataLabel.centerXAnchor.constraint(equalTo: serialImageView.centerXAnchor),
             serialDataLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             serialDataLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
