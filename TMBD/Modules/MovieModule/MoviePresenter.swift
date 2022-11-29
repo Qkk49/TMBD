@@ -6,7 +6,7 @@ protocol MovieViewProtocol: AnyObject {
 }
 
 protocol MovieViewPresenterProtocol: AnyObject {
-    init(view: MovieViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, trend: Int?)
+    init(view: MovieViewProtocol, networkService: NetworkServiceDetailProtocol, router: RouterProtocol, trend: Int?)
     var movie: Movie? { get set }
     var trend: Int? { get set }
     var casts: Casts? { get set }
@@ -29,13 +29,13 @@ class MoviePresenter: MovieViewPresenterProtocol {
     //MARK: - Property
     weak var view: MovieViewProtocol?
     var router: RouterProtocol?
-    let networkService: NetworkServiceProtocol!
+    let networkService: NetworkServiceDetailProtocol!
     var trend: Int?
     var movie: Movie?
     var casts: Casts?
     
     //MARK: - Init
-    required init(view: MovieViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, trend: Int?) {
+    required init(view: MovieViewProtocol, networkService: NetworkServiceDetailProtocol, router: RouterProtocol, trend: Int?) {
         self.view = view
         self.networkService = networkService
         self.router = router

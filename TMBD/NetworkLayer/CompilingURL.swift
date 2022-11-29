@@ -6,8 +6,8 @@ enum Section {
     case movies
     case serials
     case movie (id: Int)
-    case cast (type: String, id: Int)
     case serial (id: Int)
+    case cast (type: String, id: Int)
     
     private var urlComponents: URL {
         var components = URLComponents()
@@ -24,11 +24,11 @@ enum Section {
         case .movie(id: let id):
             components.path = "/3/movie/" + String(id)
             
-        case .cast(type: let type, id: let id):
-            components.path = "/3/" + type + String(id) + "/credits"
-            
         case .serial(id: let id):
             components.path = "/3/tv/" + String(id)
+            
+        case .cast(type: let type, id: let id):
+            components.path = "/3/" + type + String(id) + "/credits"
         }
         return components.url!
     }

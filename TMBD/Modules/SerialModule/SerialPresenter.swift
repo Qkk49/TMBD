@@ -6,7 +6,7 @@ protocol SerialViewProtocol: AnyObject {
 }
 
 protocol SerialViewPresenterProtocol: AnyObject {
-    init(view: SerialViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, popular: Int?)
+    init(view: SerialViewProtocol, networkService: NetworkServiceDetailProtocol, router: RouterProtocol, popular: Int?)
     var serial: Serial? { get set }
     var popular: Int? { get set }
     var casts: Casts? { get set }
@@ -27,13 +27,13 @@ class SerialPresenter: SerialViewPresenterProtocol {
     //MARK: - Property
     weak var view: SerialViewProtocol?
     var router: RouterProtocol?
-    let networkService: NetworkServiceProtocol!
+    let networkService: NetworkServiceDetailProtocol!
     var popular: Int?
     var serial: Serial?
     var casts: Casts?
     
     //MARK: - Init
-    required init(view: SerialViewProtocol, networkService: NetworkServiceProtocol, router: RouterProtocol, popular: Int?) {
+    required init(view: SerialViewProtocol, networkService: NetworkServiceDetailProtocol, router: RouterProtocol, popular: Int?) {
         self.view = view
         self.networkService = networkService
         self.router = router
