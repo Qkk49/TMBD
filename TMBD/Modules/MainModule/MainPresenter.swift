@@ -21,7 +21,7 @@ protocol MainViewPresenterProtocol: AnyObject {
     func getSerialData(for indexpath : Int) -> String?
 }
 
-class MainPresenter: MainViewPresenterProtocol {
+final class MainPresenter: MainViewPresenterProtocol {
     //MARK: - Property
     weak var view: MainViewProtocol?
     var router: RouterProtocol?
@@ -80,38 +80,43 @@ class MainPresenter: MainViewPresenterProtocol {
     
     //MARK: - Get model property
     func getMoviePhotoUrl(for indexpath: Int) -> String? {
-        return "https://image.tmdb.org/t/p/w154" + (movies?.results[indexpath].poster_path)!
+        guard let movieUrl = movies?.results[indexpath].poster_path else {
+            return "cckcYc2v0yh1tc9QjRelptcOBko.jpg"
+        }
+        return movieUrl
     }
     func getMovieTitle(for indexpath: Int) -> String? {
-        return movies?.results[indexpath].original_title
+        guard let movieTitle = movies?.results[indexpath].original_title else {
+            return "MissTitle"
+        }
+        return movieTitle
     }
     
     func getMovieData(for indexpath: Int) -> String? {
-        let mockDict = movies?.results[indexpath].release_date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dataDate = dateFormatter.date(from: mockDict!)!
-
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        let newStringDate = dateFormatter.string(from: dataDate)
-        return newStringDate
+        guard let movieDate = movies?.results[indexpath].release_date else {
+            return "Nov 1, 2000"
+        }
+        return mainDate(movieDate)
     }
     
     func getSerialPhotoUrl(for indexpath: Int) -> String? {
-        return "https://image.tmdb.org/t/p/w154" + (serials?.results[indexpath].poster_path)!
+        guard let serialUrl = serials?.results[indexpath].poster_path else {
+            return "cckcYc2v0yh1tc9QjRelptcOBko.jpg"
+        }
+        return serialUrl
     }
+    
     func getSerialTitle(for indexpath: Int) -> String? {
-        return serials?.results[indexpath].name
+        guard let serialTitle = serials?.results[indexpath].name else {
+            return "MissTitle"
+        }
+        return serialTitle
     }
     
     func getSerialData(for indexpath: Int) -> String? {
-        let mockDict = serials?.results[indexpath].first_air_date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let dataDate = dateFormatter.date(from: mockDict!)!
-
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        let newStringDate = dateFormatter.string(from: dataDate)
-        return newStringDate
+        guard let serialDate = serials?.results[indexpath].first_air_date else {
+            return "Nov 1, 2000"
+        }
+        return mainDate(serialDate)
     }
 }
