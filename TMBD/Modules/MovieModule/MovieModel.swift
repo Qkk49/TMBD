@@ -1,7 +1,6 @@
 import Foundation
 
 struct Movie: Decodable {
-    let backdrop_path: String?
     let poster_path: String?
     let genres: [Geners]
     let overview: String?

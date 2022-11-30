@@ -16,14 +16,13 @@ final class MainSerialCollectionViewCell: UICollectionViewCell {
     var serialTitleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.font = .boldSystemFont(ofSize: 15)
-        titleLabel.textColor = .white
         return titleLabel
     }()
     
     var serialDataLabel: UILabel = {
         let dataLabel = UILabel()
         dataLabel.font = .systemFont(ofSize: 14)
-        dataLabel.textColor = .lightText
+        dataLabel.textColor = .gray
         return dataLabel
     }()
     
