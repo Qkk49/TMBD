@@ -10,14 +10,12 @@ final class MainViewController: UIViewController {
         let movieCollectionLabel = UILabel()
         movieCollectionLabel.text = "Trending Movie"
         movieCollectionLabel.font = .boldSystemFont(ofSize: 22)
-        movieCollectionLabel.textColor = .white
         return movieCollectionLabel
     }()
     
     private lazy var movieCollectionView: UICollectionView = {
         let movieView = UICollectionView(frame: .zero, collectionViewLayout: createMovieLayout())
         movieView.register(MainMovieCollectionViewCell.self, forCellWithReuseIdentifier: MainMovieCollectionViewCell.identifire)
-        movieView.backgroundColor = .clear
         movieView.delegate = self
         movieView.dataSource = self
         return movieView
@@ -27,14 +25,12 @@ final class MainViewController: UIViewController {
         let serialCollectionLabel = UILabel()
         serialCollectionLabel.text = "Popular TV"
         serialCollectionLabel.font = .boldSystemFont(ofSize: 22)
-        serialCollectionLabel.textColor = .white
         return serialCollectionLabel
     }()
     
     private lazy var serialCollectionView: UICollectionView = {
         let serialView = UICollectionView(frame: .zero, collectionViewLayout: createSerialLayout())
         serialView.register(MainSerialCollectionViewCell.self, forCellWithReuseIdentifier: MainSerialCollectionViewCell.identifire)
-        serialView.backgroundColor = .clear
         serialView.delegate = self
         serialView.dataSource = self
         return serialView
@@ -53,15 +49,15 @@ final class MainViewController: UIViewController {
     
     //MARK: - addView(delegate/view property)
     private func addViews() {
-        view.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.43)
+        view.backgroundColor = .white
         view.addSubviews(titleMovieCollectionLabel, movieCollectionView, titleSerialCollectionLabel, serialCollectionView)
         
-        self.title = "TMBD"
+        self.title = "Popular"
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .systemRed
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
+        
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance

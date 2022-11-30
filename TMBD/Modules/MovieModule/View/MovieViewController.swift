@@ -2,69 +2,80 @@ import UIKit
 import Kingfisher
 import Cosmos
 
-class MovieViewController: UIViewController {
+final class MovieViewController: UIViewController {
     
     //MARK: - Property
     var presenter: MovieViewPresenterProtocol!
     
     var mainImage: UIImageView = {
         var imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.alpha = 0.72
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     var movieNameLabel: UILabel = {
         var nameLabel = UILabel()
-        nameLabel.font = .boldSystemFont(ofSize: 24)
-        nameLabel.textColor = .white
+        nameLabel.font = .boldSystemFont(ofSize: 15)
+        nameLabel.numberOfLines = 3
         return nameLabel
     }()
     
-    var movieInfoLabel: UILabel = {
+    var movieYearLabel: UILabel = {
         var infoLabel = UILabel()
-        infoLabel.font = .systemFont(ofSize: 16)
-        infoLabel.textColor = .lightText
+        infoLabel.font = .systemFont(ofSize: 14)
         return infoLabel
     }()
     
-    lazy var movieBackButton: UIButton = {
-        var backButton = UIButton()
-        var imageButton = UIImage(named: "backArrow")
-        backButton.setImage(imageButton, for: .normal)
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-        return backButton
+    var movieGenerLabel: UILabel = {
+        var infoLabel = UILabel()
+        infoLabel.font = .systemFont(ofSize: 14)
+        return infoLabel
     }()
     
-    var movieRating: UIView = {
-        var rating = UIView()
-        return rating
+    var movieRuntimeLabel: UILabel = {
+        var infoLabel = UILabel()
+        infoLabel.font = .systemFont(ofSize: 14)
+        return infoLabel
     }()
     
     var movieTextRating: UILabel = {
         var textRating = UILabel()
         textRating.font = .systemFont(ofSize: 20)
-        textRating.textColor = .systemYellow
+        textRating.textColor = .systemRed
         return textRating
     }()
     
     var movieStarRating: CosmosView = {
         var starRating = CosmosView()
         starRating.settings.fillMode = .precise
-        starRating.settings.emptyColor = .lightText
-        starRating.settings.filledBorderColor = .systemYellow
-        starRating.settings.emptyBorderColor = .lightText
+        starRating.settings.emptyColor = .gray
+        starRating.settings.filledBorderColor = .black
+        starRating.settings.emptyBorderColor = .black
         starRating.settings.starSize = 20
         starRating.settings.starMargin = 5
-        starRating.settings.filledColor = .systemYellow
+        starRating.settings.filledColor = .systemRed
         return starRating
+    }()
+    
+    lazy var stackView: UIStackView = {
+        var stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalCentering
+        stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.addArrangedSubview(movieNameLabel)
+        stackView.addArrangedSubview(movieYearLabel)
+        stackView.addArrangedSubview(movieGenerLabel)
+        stackView.addArrangedSubview(movieRuntimeLabel)
+        stackView.addArrangedSubview(movieTextRating)
+        stackView.addArrangedSubview(movieStarRating)
+        return stackView
     }()
     
     var movieOverview: UILabel = {
         var overview = UILabel()
-        overview.font = .systemFont(ofSize: 16)
-        overview.textColor = .lightText
-        overview.numberOfLines = 5
+        overview.font = .systemFont(ofSize: 14)
+        overview.numberOfLines = 0
         return overview
     }()
     
@@ -72,15 +83,13 @@ class MovieViewController: UIViewController {
         var castTitle = UILabel()
         castTitle.text = "Cast"
         castTitle.font = .boldSystemFont(ofSize: 20)
-        castTitle.textColor = .white
         return castTitle
     }()
     
-    var movieCastCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let castView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    lazy var movieCastCollectionView: UICollectionView = {
+        let castView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         castView.register(MovieCastCollectionViewCell.self, forCellWithReuseIdentifier: MovieCastCollectionViewCell.identifire)
-        castView.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.0)
+        castView.dataSource = self
         return castView
     }()
     
@@ -105,16 +114,17 @@ class MovieViewController: UIViewController {
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.43)
-        movieRating.addSubviews(movieTextRating, movieStarRating)
-        view.addSubviews(mainImage, movieBackButton, movieNameLabel, movieInfoLabel, movieRating, movieOverview, movieCastTitle, movieCastCollectionView, movieToWebButton)
+        view.backgroundColor = .white
+        view.addSubviews(mainImage, stackView, movieOverview, movieCastTitle, movieCastCollectionView, movieToWebButton)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         addConstraints()
-        createLayout()
-        movieCastCollectionView.dataSource = self
     }
     
     //MARK: - Create Layout
-    private func createLayout() {
+    private func createLayout() -> UICollectionViewCompositionalLayout {
         let spacing: CGFloat = 10
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -134,59 +144,39 @@ class MovieViewController: UIViewController {
         section.orthogonalScrollingBehavior = .continuous
 
         let layout = UICollectionViewCompositionalLayout(section: section)
-        movieCastCollectionView.collectionViewLayout = layout
+        return layout
     }
     
     //MARK: - Constraints
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            mainImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            mainImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
+            mainImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            mainImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            mainImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            mainImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
             
-            movieBackButton.topAnchor.constraint(equalTo: mainImage.topAnchor),
-            movieBackButton.heightAnchor.constraint(equalTo: mainImage.heightAnchor, multiplier: 0.15),
-            movieBackButton.widthAnchor.constraint(equalTo: mainImage.widthAnchor, multiplier: 0.15),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
             
-            movieNameLabel.bottomAnchor.constraint(equalTo: movieInfoLabel.topAnchor, constant: -4),
-            movieNameLabel.centerXAnchor.constraint(equalTo: mainImage.centerXAnchor),
+            movieOverview.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 16),
+            movieOverview.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95),
+            movieOverview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            movieInfoLabel.bottomAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: -8),
-            movieInfoLabel.centerXAnchor.constraint(equalTo: mainImage.centerXAnchor),
+            movieToWebButton.topAnchor.constraint(equalTo: movieOverview.bottomAnchor, constant: 20),
+            movieToWebButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
+            movieToWebButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.055),
+            movieToWebButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            movieRating.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 18),
-            movieRating.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            movieTextRating.leadingAnchor.constraint(equalTo: movieRating.leadingAnchor),
-            movieTextRating.centerYAnchor.constraint(equalTo: movieRating.centerYAnchor),
-            movieTextRating.trailingAnchor.constraint(equalTo: movieStarRating.leadingAnchor, constant: -8),
-            
-            movieStarRating.trailingAnchor.constraint(equalTo: movieRating.trailingAnchor),
-            movieStarRating.centerYAnchor.constraint(equalTo: movieRating.centerYAnchor),
-            
-            movieOverview.topAnchor.constraint(equalTo: movieRating.bottomAnchor, constant: 16),
-            movieOverview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            movieOverview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            
-            movieCastTitle.topAnchor.constraint(equalTo: movieOverview.bottomAnchor, constant: 16),
+            movieCastTitle.topAnchor.constraint(equalTo: movieToWebButton.bottomAnchor, constant: 20),
             movieCastTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            movieCastTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             movieCastCollectionView.topAnchor.constraint(equalTo: movieCastTitle.bottomAnchor),
             movieCastCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             movieCastCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            movieCastCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-            
-            movieToWebButton.topAnchor.constraint(equalTo: movieCastCollectionView.bottomAnchor),
-            movieToWebButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            movieToWebButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.055),
-            movieToWebButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            movieCastCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
         ])
-    }
-    
-    @objc func back(sender: UIButton) {
-        presenter.tap()
     }
     
     @objc func toWeb(sender: UIButton) {
@@ -199,27 +189,25 @@ extension MovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return min(10, presenter.casts?.cast.count ?? 0)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = movieCastCollectionView.dequeueReusableCell(withReuseIdentifier: MovieCastCollectionViewCell.identifire, for: indexPath) as? MovieCastCollectionViewCell else { return UICollectionViewCell() }
-        if let imageURL = presenter.getCastURL(for: indexPath.row) {
-            cell.castImageView.kf.setImage(with: URL(string: imageURL))
-        }
-        if let name = presenter.getCastName(for: indexPath.row) {
-            cell.castNameLabel.text = name
-        }
-        if let character = presenter.getCastCharacter(for: indexPath.row) {
-            cell.castCharacterLabel.text = character
-        }
+
+        cell.castImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w185" + presenter.getCastURL(for: indexPath.row)))
+        cell.castNameLabel.text = presenter.getCastName(for: indexPath.row)
+        cell.castCharacterLabel.text = presenter.getCastCharacter(for: indexPath.row)
+        
         return cell
     }
 }
 
 extension MovieViewController: MovieViewProtocol {
     func success() {
-        mainImage.kf.setImage(with: URL(string: presenter.getBackImageMovie()!))
+        mainImage.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w342" + presenter.getBackImageMovie()))
         movieNameLabel.text = presenter.movie?.original_title
-        movieInfoLabel.text = presenter.getYearMovie() + "\u{272F}" + presenter.getGanrMovie(for: 0) + "\u{272F}" + presenter.getRuntimeMovie()
+        movieYearLabel.text = presenter.getYearMovie()
+        movieGenerLabel.text = presenter.getGanrMovie(for: 0)
+        movieRuntimeLabel.text = presenter.getRuntimeMovie()
         movieTextRating.text = presenter.getRatingTextMovie()
         movieStarRating.rating = presenter.getRatingStarMovie()
         movieOverview.text = presenter.movie?.overview
@@ -227,6 +215,6 @@ extension MovieViewController: MovieViewProtocol {
     }
 
     func failure(error: Error) {
-        
+        print(error)
     }
 }

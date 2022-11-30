@@ -12,16 +12,15 @@ protocol MovieViewPresenterProtocol: AnyObject {
     var casts: Casts? { get set }
     func getThisMovie(id: Int)
     func getThisCast(id: Int)
-    func tap()
-    func getBackImageMovie() -> String?
+    func getBackImageMovie() -> String
     func getYearMovie() -> String
     func getGanrMovie(for indexpath : Int) -> String
     func getRuntimeMovie() -> String
     func getRatingTextMovie() -> String
     func getRatingStarMovie() -> Double
-    func getCastURL(for indexpath : Int) -> String?
-    func getCastName(for indexpath : Int) -> String?
-    func getCastCharacter(for indexpath : Int) -> String?
+    func getCastURL(for indexpath : Int) -> String
+    func getCastName(for indexpath : Int) -> String
+    func getCastCharacter(for indexpath : Int) -> String
 }
 
 class MoviePresenter: MovieViewPresenterProtocol {
@@ -73,94 +72,73 @@ class MoviePresenter: MovieViewPresenterProtocol {
         }
     }
     
-    //MARK: - Navigation root
-    func tap() {
-        router?.popToRoot()
-    }
-    
     //MARK: - Get model property
-    func getBackImageMovie() -> String? {
-        let url = movie?.backdrop_path
-        if url == nil {
-            return "https://image.tmdb.org/t/p/original/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
-        } else {
-            return "https://image.tmdb.org/t/p/original" + url!
+    func getBackImageMovie() -> String {
+        guard let url = movie?.poster_path else {
+            return "cckcYc2v0yh1tc9QjRelptcOBko.jpg"
         }
+        return url
     }
     
     func getYearMovie() -> String {
-        let releaseDate = movie?.release_date
-        if releaseDate == nil {
-            return "123"
-        } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dataDate = dateFormatter.date(from: releaseDate!)
-            
-            dateFormatter.dateFormat = "yyyy"
-            let newStringDate = dateFormatter.string(from: dataDate!)
-            return newStringDate
+        guard let releaseDate = movie?.release_date else {
+            return "2000"
         }
+        return mainDate(releaseDate)
     }
     
     func getGanrMovie(for indexpath : Int) -> String {
-        if movie?.genres != nil {
-            let count = movie?.genres.count
-            if count == 1 {
-                let firstGanr = movie?.genres[indexpath].name
-                return firstGanr!
-            } else {
-                let secondGanr = (movie?.genres[indexpath].name)! + ", " + (movie?.genres[indexpath + 1].name)!
-                return secondGanr
-            }
-        } else { return "123" }
+        guard let geners = movie?.genres else {
+            return "Triler"
+        }
+        if geners.count == 1 {
+            return geners[indexpath].name
+        } else {
+            return geners[indexpath].name + ", " + geners[indexpath + 1].name
+        }
     }
     
     func getRuntimeMovie() -> String {
-        let mockTime = movie?.runtime
-        if mockTime == nil {
-            return "123"
-        } else {
-            let hour = mockTime! / 60 % 60
-            let minute = mockTime! % 60
-            return String(format: "\(hour) h \(minute) min")
+        guard let mockTime = movie?.runtime else {
+            return "1 h 30 min"
         }
+        return mainTime(mockTime)
     }
     
     func getRatingTextMovie() -> String {
-        let mockRating = movie?.vote_average
-        if mockRating == nil {
-            return "123"
-        } else {
-            let result = NSString(format:"%.1f", mockRating!)
-            return String(describing: result)
+        guard let mockRating = movie?.vote_average else {
+            return "5.0"
         }
+        let result = NSString(format:"%.1f", mockRating)
+        return String(describing: result)
     }
     
     func getRatingStarMovie() -> Double {
-        let mockRating = movie?.vote_average
-        if mockRating == nil {
-            return 123.0
-        } else {
-            let result = mockRating! / 2
-            return result
+        guard let mockRating = movie?.vote_average else {
+            return 2.5
         }
+        let result = mockRating / 2
+        return result
     }
     
-    func getCastURL(for indexpath : Int) -> String? {
-        let url = casts?.cast[indexpath].profile_path
-        if url == nil {
-            return "https://image.tmdb.org/t/p/original/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
-        } else {
-            return "https://image.tmdb.org/t/p/original" + url!
+    func getCastURL(for indexpath : Int) -> String {
+        guard let url = casts?.cast[indexpath].profile_path else {
+            return "cckcYc2v0yh1tc9QjRelptcOBko.jpg"
         }
+        return url
     }
     
-    func getCastName(for indexpath : Int) -> String? {
-        return casts?.cast[indexpath].name
+    func getCastName(for indexpath : Int) -> String {
+        guard let castName = casts?.cast[indexpath].name else {
+            return "Bred Pit"
+        }
+        return castName
     }
     
-    func getCastCharacter(for indexpath : Int) -> String? {
-        return casts?.cast[indexpath].character
+    func getCastCharacter(for indexpath : Int) -> String {
+        guard let castCharacter = casts?.cast[indexpath].character else {
+            return "Bred Pit"
+        }
+        return castCharacter
     }
 }

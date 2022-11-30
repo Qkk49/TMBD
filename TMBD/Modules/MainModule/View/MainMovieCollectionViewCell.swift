@@ -16,14 +16,13 @@ final class MainMovieCollectionViewCell: UICollectionViewCell {
     var movieTitleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.font = .boldSystemFont(ofSize: 15)
-        titleLabel.textColor = .white
         return titleLabel
     }()
     
     var movieDataLabel: UILabel = {
         let dataLabel = UILabel()
         dataLabel.font = .systemFont(ofSize: 14)
-        dataLabel.textColor = .lightText
+        dataLabel.textColor = .gray
         return dataLabel
     }()
     
