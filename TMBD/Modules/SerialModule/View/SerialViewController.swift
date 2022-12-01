@@ -2,85 +2,82 @@ import UIKit
 import Kingfisher
 import Cosmos
 
-class SerialViewController: UIViewController {
+final class SerialViewController: UIViewController {
     
     //MARK: - Property
     var presenter: SerialViewPresenterProtocol!
     
     var serialImage: UIImageView = {
         var imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.alpha = 0.72
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
     var serialNameLabel: UILabel = {
         var nameLabel = UILabel()
-        nameLabel.font = .boldSystemFont(ofSize: 24)
-        nameLabel.textColor = .white
+        nameLabel.font = .boldSystemFont(ofSize: 15)
+        nameLabel.numberOfLines = 3
         return nameLabel
     }()
 
-    var serialInfoLabel: UILabel = {
+    var serialYearLabel: UILabel = {
         var infoLabel = UILabel()
-        infoLabel.font = .systemFont(ofSize: 16)
-        infoLabel.textColor = .lightText
+        infoLabel.font = .systemFont(ofSize: 14)
+        return infoLabel
+    }()
+    
+    var serialGenerLabel: UILabel = {
+        var infoLabel = UILabel()
+        infoLabel.font = .systemFont(ofSize: 14)
         return infoLabel
     }()
 
-    lazy var serialBackButton: UIButton = {
-        var backButton = UIButton()
-        var imageButton = UIImage(named: "backArrow")
-        backButton.setImage(imageButton, for: .normal)
-        backButton.addTarget(self, action: #selector(back), for: .touchUpInside)
-        return backButton
-    }()
-
-    var serialRatingView: UIView = {
-        var ratingView = UIView()
-        return ratingView
-    }()
-
-    var serialRatingLabel: UILabel = {
-        var ratingLabel = UILabel()
-        ratingLabel.font = .systemFont(ofSize: 20)
-        ratingLabel.textColor = .systemYellow
-        return ratingLabel
+    var serialTextRating: UILabel = {
+        var textRating = UILabel()
+        textRating.font = .systemFont(ofSize: 20)
+        textRating.textColor = .systemRed
+        return textRating
     }()
     
-    var serialRatingCosmos: CosmosView = {
-        var ratingCosmos = CosmosView()
-        ratingCosmos.settings.fillMode = .precise
-        ratingCosmos.settings.emptyColor = .lightText
-        ratingCosmos.settings.filledBorderColor = .systemYellow
-        ratingCosmos.settings.emptyBorderColor = .lightText
-        ratingCosmos.settings.starSize = 20
-        ratingCosmos.settings.starMargin = 5
-        ratingCosmos.settings.filledColor = .systemYellow
-        return ratingCosmos
-    }()
-
-    var serialOverviewLabel: UILabel = {
-        var overviewLabel = UILabel()
-        overviewLabel.font = .systemFont(ofSize: 16)
-        overviewLabel.textColor = .lightText
-        overviewLabel.numberOfLines = 5
-        return overviewLabel
-    }()
-
-    var serialCastTitleLabel: UILabel = {
-        var castTitleLabel = UILabel()
-        castTitleLabel.text = "Cast"
-        castTitleLabel.font = .boldSystemFont(ofSize: 20)
-        castTitleLabel.textColor = .white
-        return castTitleLabel
+    var serialStarRating: CosmosView = {
+        var starRating = CosmosView()
+        starRating.settings.fillMode = .precise
+        starRating.settings.emptyColor = .gray
+        starRating.settings.filledBorderColor = .black
+        starRating.settings.emptyBorderColor = .black
+        starRating.settings.starSize = 20
+        starRating.settings.starMargin = 5
+        starRating.settings.filledColor = .systemRed
+        return starRating
     }()
     
-    var serialCastCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let castView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    lazy var stackView: UIStackView = {
+        var stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .equalCentering
+        stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.addArrangedSubview(serialNameLabel)
+        stackView.addArrangedSubview(serialYearLabel)
+        stackView.addArrangedSubview(serialGenerLabel)
+        stackView.addArrangedSubview(serialTextRating)
+        stackView.addArrangedSubview(serialStarRating)
+        return stackView
+    }()
+    
+    var serialOverview: UILabel = {
+        var overview = UILabel()
+        overview.font = .systemFont(ofSize: 14)
+        overview.numberOfLines = 0
+        return overview
+    }()
+    
+    lazy var serialCastCollectionView: UICollectionView = {
+        let castView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         castView.register(SerialCastCollectionViewCell.self, forCellWithReuseIdentifier: SerialCastCollectionViewCell.identifire)
-        castView.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.0)
+        castView.register(SerialCastHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SerialCastHeaderCell.identifire)
+        castView.dataSource = self
+        castView.delegate = self
         return castView
     }()
 
@@ -105,88 +102,42 @@ class SerialViewController: UIViewController {
     //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.45, green: 0.40, blue: 0.53, alpha: 0.43)
-        serialRatingView.addSubviews(serialRatingLabel, serialRatingCosmos)
-        view.addSubviews(serialImage, serialBackButton, serialNameLabel, serialInfoLabel, serialRatingView, serialOverviewLabel, serialCastTitleLabel, serialCastCollectionView, serialToWebButton)
-        addConstraints()
-        createLayout()
-        serialCastCollectionView.dataSource = self
+        view.backgroundColor = .white
+        view.addSubviews(serialImage, stackView, serialOverview, serialToWebButton, serialCastCollectionView)
     }
     
-    //MARK: - Create Layout
-    private func createLayout() {
-        let spacing: CGFloat = 10
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(0.5))
-
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0 / 6.7),
-            heightDimension: .fractionalHeight(1.0))
-
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.interItemSpacing = .fixed(spacing)
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
-        section.interGroupSpacing = 20
-        section.orthogonalScrollingBehavior = .continuous
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        serialCastCollectionView.collectionViewLayout = layout
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        addConstraints()
     }
 
     //MARK: - Constraints
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            serialImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            serialImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            serialImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            serialImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.45),
-
-            serialBackButton.topAnchor.constraint(equalTo: serialImage.topAnchor),
-            serialBackButton.heightAnchor.constraint(equalTo: serialImage.heightAnchor, multiplier: 0.15),
-            serialBackButton.widthAnchor.constraint(equalTo: serialImage.widthAnchor, multiplier: 0.15),
-
-            serialNameLabel.bottomAnchor.constraint(equalTo: serialInfoLabel.topAnchor, constant: -4),
-            serialNameLabel.centerXAnchor.constraint(equalTo: serialImage.centerXAnchor),
-
-            serialInfoLabel.bottomAnchor.constraint(equalTo: serialImage.bottomAnchor, constant: -8),
-            serialInfoLabel.centerXAnchor.constraint(equalTo: serialImage.centerXAnchor),
-
-            serialRatingView.topAnchor.constraint(equalTo: serialImage.bottomAnchor, constant: 18),
-            serialRatingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-            serialRatingLabel.leadingAnchor.constraint(equalTo: serialRatingView.leadingAnchor),
-            serialRatingLabel.centerYAnchor.constraint(equalTo: serialRatingView.centerYAnchor),
-            serialRatingLabel.trailingAnchor.constraint(equalTo: serialRatingCosmos.leadingAnchor, constant: -8),
-
-            serialRatingCosmos.trailingAnchor.constraint(equalTo: serialRatingView.trailingAnchor),
-            serialRatingCosmos.centerYAnchor.constraint(equalTo: serialRatingView.centerYAnchor),
-
-            serialOverviewLabel.topAnchor.constraint(equalTo: serialRatingView.bottomAnchor, constant: 16),
-            serialOverviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            serialOverviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-
-            serialCastTitleLabel.topAnchor.constraint(equalTo: serialOverviewLabel.bottomAnchor, constant: 16),
-            serialCastTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            serialCastTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-
-            serialCastCollectionView.topAnchor.constraint(equalTo: serialCastTitleLabel.bottomAnchor),
-            serialCastCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            serialCastCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            serialCastCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-
-            serialToWebButton.topAnchor.constraint(equalTo: serialCastCollectionView.bottomAnchor),
-            serialToWebButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            serialImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            serialImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            serialImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            serialImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            stackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
+            
+            serialOverview.topAnchor.constraint(equalTo: serialImage.bottomAnchor, constant: 16),
+            serialOverview.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95),
+            serialOverview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            serialToWebButton.topAnchor.constraint(equalTo: serialOverview.bottomAnchor, constant: 20),
+            serialToWebButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             serialToWebButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.055),
-            serialToWebButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            serialToWebButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            serialCastCollectionView.topAnchor.constraint(equalTo: serialToWebButton.bottomAnchor, constant: 10),
+            serialCastCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95),
+            serialCastCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            serialCastCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-    }
-
-    @objc func back(sender: UIButton) {
-        presenter.tap()
     }
 
     @objc func toWeb(sender: UIButton) {
@@ -195,38 +146,54 @@ class SerialViewController: UIViewController {
 }
 
 //MARK: - Collection DataSource
-extension SerialViewController: UICollectionViewDataSource {
+extension SerialViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(10, presenter.casts?.cast.count ?? 0)
+        return min(6, presenter.casts?.cast.count ?? 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = serialCastCollectionView.dequeueReusableCell(withReuseIdentifier: SerialCastCollectionViewCell.identifire, for: indexPath) as? SerialCastCollectionViewCell else { return UICollectionViewCell() }
-        if let imageURL = presenter.getCastTvURL(for: indexPath.row) {
-            cell.castImageView.kf.setImage(with: URL(string: imageURL))
-        }
-        if let name = presenter.getCastTvName(for: indexPath.row) {
-            cell.castNameLabel.text = name
-        }
-        if let character = presenter.getCastTvCharacter(for: indexPath.row) {
-            cell.castCharacterLabel.text = character
-        }
+        
+        cell.castImageView.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w185" + presenter.getCastTvURL(for: indexPath.row)))
+        cell.castNameLabel.text = presenter.getCastTvName(for: indexPath.row)
+        cell.castCharacterLabel.text = presenter.getCastTvCharacter(for: indexPath.row)
+        
         return cell
+    }
+}
+
+//MARK: - Collection Layout
+extension SerialViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3.5, height: 180)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerCell = serialCastCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SerialCastHeaderCell.identifire, for: indexPath) as? SerialCastHeaderCell else { return UICollectionReusableView() }
+        return headerCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 0, height: 80.0)
     }
 }
 
 extension SerialViewController: SerialViewProtocol {
     func success() {
-        serialImage.kf.setImage(with: URL(string: presenter.getBackImageSerial()!))
+        serialImage.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w342" + presenter.getBackImageSerial()))
         serialNameLabel.text = presenter.serial?.original_name
-        serialInfoLabel.text = presenter.getYearSerial() + "\u{272F}" + presenter.getGanrSerial(for: 0)
-        serialRatingLabel.text = presenter.getRatingLabelSerial()
-        serialRatingCosmos.rating = presenter.getRatingCosmosSerial()
-        serialOverviewLabel.text = presenter.serial?.overview
+        serialYearLabel.text = presenter.getYearSerial()
+        serialGenerLabel.text = presenter.getGanrSerial(for: 0)
+        serialTextRating.text = presenter.getRatingLabelSerial()
+        serialStarRating.rating = presenter.getRatingCosmosSerial()
+        serialOverview.text = presenter.serial?.overview
         serialCastCollectionView.reloadData()
     }
 
     func failure(error: Error) {
-        
+        print(error)
     }
 }

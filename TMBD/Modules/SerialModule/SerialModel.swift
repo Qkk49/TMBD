@@ -1,7 +1,7 @@
 import Foundation
 
 struct Serial: Decodable {
-    let backdrop_path: String?
+    let poster_path: String?
     let genres: [Ganers]
     let overview: String?
     let vote_average: Double

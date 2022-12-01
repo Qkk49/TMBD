@@ -23,7 +23,7 @@ protocol MovieViewPresenterProtocol: AnyObject {
     func getCastCharacter(for indexpath : Int) -> String
 }
 
-class MoviePresenter: MovieViewPresenterProtocol {
+final class MoviePresenter: MovieViewPresenterProtocol {
    
     //MARK: - Property
     weak var view: MovieViewProtocol?

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8A07B0EF2918829100AF3635 /* MainSerialCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A07B0EE2918829100AF3635 /* MainSerialCollectionViewCell.swift */; };
 		8A3E3FF72914021E00803EA5 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E3FF62914021E00803EA5 /* Extension+UIView.swift */; };
+		8A4576A629389997008842A5 /* MovieCastHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4576A529389997008842A5 /* MovieCastHeaderCell.swift */; };
+		8A4576A82938AAD1008842A5 /* SerialCastHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4576A72938AAD1008842A5 /* SerialCastHeaderCell.swift */; };
 		8A467E9629145E5C009492E1 /* Pods_TMBD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 932EAC04E091C43224FA4F77 /* Pods_TMBD.framework */; };
 		8A8B00A62935D51C0083E3F4 /* NetworkServiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B00A52935D51C0083E3F4 /* NetworkServiceDetail.swift */; };
 		8A8B00A82935DDC60083E3F4 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B00A72935DDC60083E3F4 /* Extension+Date.swift */; };
@@ -59,6 +61,8 @@
 		7D23FB515EF8CFF23E1A12E8 /* Pods-TMBD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMBD.debug.xcconfig"; path = "Target Support Files/Pods-TMBD/Pods-TMBD.debug.xcconfig"; sourceTree = "<group>"; };
 		8A07B0EE2918829100AF3635 /* MainSerialCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSerialCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A3E3FF62914021E00803EA5 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		8A4576A529389997008842A5 /* MovieCastHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCastHeaderCell.swift; sourceTree = "<group>"; };
+		8A4576A72938AAD1008842A5 /* SerialCastHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialCastHeaderCell.swift; sourceTree = "<group>"; };
 		8A8B00A52935D51C0083E3F4 /* NetworkServiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceDetail.swift; sourceTree = "<group>"; };
 		8A8B00A72935DDC60083E3F4 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		8A8D442D2917F7D8002AD4FD /* MovieCastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCastCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			children = (
 				8AF1D966291931C5003E0381 /* SerialViewController.swift */,
 				8AF1D98F29198C19003E0381 /* SerialCastCollectionViewCell.swift */,
+				8A4576A72938AAD1008842A5 /* SerialCastHeaderCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			children = (
 				8AFFA4F32911C127009BC43A /* MovieViewController.swift */,
 				8A8D442D2917F7D8002AD4FD /* MovieCastCollectionViewCell.swift */,
+				8A4576A529389997008842A5 /* MovieCastHeaderCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -533,11 +539,13 @@
 				8A9617382915ADE2000A9E00 /* MovieModel.swift in Sources */,
 				8AFFA50D2911E06A009BC43A /* NetworkServiceMain.swift in Sources */,
 				8A8B00A62935D51C0083E3F4 /* NetworkServiceDetail.swift in Sources */,
+				8A4576A629389997008842A5 /* MovieCastHeaderCell.swift in Sources */,
 				8AFFA4FA2911C160009BC43A /* MainPresenter.swift in Sources */,
 				8AFFA4C82911BC72009BC43A /* MainViewController.swift in Sources */,
 				8A8B00A82935DDC60083E3F4 /* Extension+Date.swift in Sources */,
 				8A3E3FF72914021E00803EA5 /* Extension+UIView.swift in Sources */,
 				8AFFA4C42911BC72009BC43A /* AppDelegate.swift in Sources */,
+				8A4576A82938AAD1008842A5 /* SerialCastHeaderCell.swift in Sources */,
 				8AF1D96A2919322A003E0381 /* SerialPresenter.swift in Sources */,
 				8AFFA4FE2911C1AA009BC43A /* Router.swift in Sources */,
 				8AFFA4C62911BC72009BC43A /* SceneDelegate.swift in Sources */,
