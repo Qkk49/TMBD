@@ -79,20 +79,15 @@ final class MovieViewController: UIViewController {
         return overview
     }()
     
-    var movieCastTitle: UILabel = {
-        var castTitle = UILabel()
-        castTitle.text = "Cast"
-        castTitle.font = .boldSystemFont(ofSize: 20)
-        return castTitle
-    }()
-    
     lazy var movieCastCollectionView: UICollectionView = {
-        let castView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        let castView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         castView.register(MovieCastCollectionViewCell.self, forCellWithReuseIdentifier: MovieCastCollectionViewCell.identifire)
+        castView.register(MovieCastHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MovieCastHeaderCell.identifire)
         castView.dataSource = self
+        castView.delegate = self
         return castView
     }()
-    
+
     lazy var movieToWebButton: UIButton = {
         var webButton = UIButton()
         webButton.backgroundColor = .red
@@ -115,36 +110,12 @@ final class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubviews(mainImage, stackView, movieOverview, movieCastTitle, movieCastCollectionView, movieToWebButton)
+        view.addSubviews(mainImage, stackView, movieOverview, movieToWebButton, movieCastCollectionView)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         addConstraints()
-    }
-    
-    //MARK: - Create Layout
-    private func createLayout() -> UICollectionViewCompositionalLayout {
-        let spacing: CGFloat = 10
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(0.5))
-        
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0 / 6.7),
-            heightDimension: .fractionalHeight(1.0))
-        
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-        group.interItemSpacing = .fixed(spacing)
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
-        section.interGroupSpacing = 20
-        section.orthogonalScrollingBehavior = .continuous
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
     }
     
     //MARK: - Constraints
@@ -169,13 +140,10 @@ final class MovieViewController: UIViewController {
             movieToWebButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.055),
             movieToWebButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            movieCastTitle.topAnchor.constraint(equalTo: movieToWebButton.bottomAnchor, constant: 20),
-            movieCastTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            
-            movieCastCollectionView.topAnchor.constraint(equalTo: movieCastTitle.bottomAnchor),
-            movieCastCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            movieCastCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            movieCastCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15)
+            movieCastCollectionView.topAnchor.constraint(equalTo: movieToWebButton.bottomAnchor, constant: 10),
+            movieCastCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95),
+            movieCastCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            movieCastCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -185,9 +153,10 @@ final class MovieViewController: UIViewController {
 }
 
 //MARK: - Collection DataSource
-extension MovieViewController: UICollectionViewDataSource {
+extension MovieViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(10, presenter.casts?.cast.count ?? 0)
+        return min(6, presenter.casts?.cast.count ?? 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -201,6 +170,26 @@ extension MovieViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: - Collection Layout
+extension MovieViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width / 3.5, height: 180)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerCell = movieCastCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MovieCastHeaderCell.identifire, for: indexPath) as? MovieCastHeaderCell else { return UICollectionReusableView() }
+        return headerCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 0, height: 80.0)
+    }
+}
+
+//MARK: - Setup View
 extension MovieViewController: MovieViewProtocol {
     func success() {
         mainImage.kf.setImage(with: URL(string: "https://image.tmdb.org/t/p/w342" + presenter.getBackImageMovie()))

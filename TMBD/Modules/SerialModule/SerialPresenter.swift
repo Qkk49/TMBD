@@ -12,18 +12,17 @@ protocol SerialViewPresenterProtocol: AnyObject {
     var casts: Casts? { get set }
     func getThisSerial(id: Int)
     func getThisCastTv(id: Int)
-    func tap()
-    func getBackImageSerial() -> String?
+    func getBackImageSerial() -> String
     func getYearSerial() -> String
     func getGanrSerial(for indexpath : Int) -> String
     func getRatingLabelSerial() -> String
     func getRatingCosmosSerial() -> Double
-    func getCastTvURL(for indexpath : Int) -> String?
-    func getCastTvName(for indexpath : Int) -> String?
-    func getCastTvCharacter(for indexpath : Int) -> String?
+    func getCastTvURL(for indexpath : Int) -> String
+    func getCastTvName(for indexpath : Int) -> String
+    func getCastTvCharacter(for indexpath : Int) -> String
 }
 
-class SerialPresenter: SerialViewPresenterProtocol {
+final class SerialPresenter: SerialViewPresenterProtocol {
     //MARK: - Property
     weak var view: SerialViewProtocol?
     var router: RouterProtocol?
@@ -71,83 +70,66 @@ class SerialPresenter: SerialViewPresenterProtocol {
         }
     }
 
-    //MARK: - Navigation root
-    func tap() {
-        router?.popToRoot()
-    }
-
     //MARK: - Get model property
-    func getBackImageSerial() -> String? {
-        let url = serial?.backdrop_path
-        if url == nil {
-            return "https://image.tmdb.org/t/p/original/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
-        } else {
-            return "https://image.tmdb.org/t/p/original" + url!
+    func getBackImageSerial() -> String {
+        guard let url = serial?.poster_path else {
+            return "cckcYc2v0yh1tc9QjRelptcOBko.jpg"
         }
+        return url
     }
 
     func getYearSerial() -> String {
-        let mockDict = serial?.first_air_date
-        if mockDict == nil {
-            return "123"
-        } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dataDate = dateFormatter.date(from: mockDict!)
-
-            dateFormatter.dateFormat = "yyyy"
-            let newStringDate = dateFormatter.string(from: dataDate!)
-            return newStringDate
+        guard let releaseDate = serial?.first_air_date else {
+            return "2000"
         }
+        return mainDate(releaseDate)
     }
 
     func getGanrSerial(for indexpath : Int) -> String {
-        if serial?.genres != nil {
-            let count = serial?.genres.count
-            if count == 1 {
-                let firstGanr = serial?.genres[indexpath].name
-                return firstGanr!
-            } else {
-                let secondGanr = (serial?.genres[indexpath].name)! + ", " + (serial?.genres[indexpath + 1].name)!
-                return secondGanr
-            }
-        } else { return "123" }
+        guard let geners = serial?.genres else {
+            return "Triler"
+        }
+        if geners.count == 1 {
+            return geners[indexpath].name
+        } else {
+            return geners[indexpath].name + ", " + geners[indexpath + 1].name
+        }
     }
 
     func getRatingLabelSerial() -> String {
-        let mockRating = serial?.vote_average
-        if mockRating == nil {
-            return "123"
-        } else {
-            let result = NSString(format:"%.1f", mockRating!)
-            return String(describing: result)
+        guard let mockRating = serial?.vote_average else {
+            return "5.0"
         }
+        let result = NSString(format:"%.1f", mockRating)
+        return String(describing: result)
     }
 
     func getRatingCosmosSerial() -> Double {
-        let mockRating = serial?.vote_average
-        if mockRating == nil {
-            return 123.0
-        } else {
-            let result = mockRating! / 2
-            return result
+        guard let mockRating = serial?.vote_average else {
+            return 2.5
         }
+        let result = mockRating / 2
+        return result
     }
 
-    func getCastTvURL(for indexpath : Int) -> String? {
-        let url = casts?.cast[indexpath].profile_path
-        if url == nil {
-            return "https://image.tmdb.org/t/p/original/cckcYc2v0yh1tc9QjRelptcOBko.jpg"
-        } else {
-            return "https://image.tmdb.org/t/p/original" + url!
+    func getCastTvURL(for indexpath : Int) -> String {
+        guard let url = casts?.cast[indexpath].profile_path else {
+            return "cckcYc2v0yh1tc9QjRelptcOBko.jpg"
         }
+        return url
     }
-
-    func getCastTvName(for indexpath : Int) -> String? {
-        return casts?.cast[indexpath].name
+    
+    func getCastTvName(for indexpath : Int) -> String {
+        guard let castName = casts?.cast[indexpath].name else {
+            return "Bred Pit"
+        }
+        return castName
     }
-
-    func getCastTvCharacter(for indexpath : Int) -> String? {
-        return casts?.cast[indexpath].character
+    
+    func getCastTvCharacter(for indexpath : Int) -> String {
+        guard let castCharacter = casts?.cast[indexpath].character else {
+            return "Bred Pit"
+        }
+        return castCharacter
     }
 }

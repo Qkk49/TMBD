@@ -6,23 +6,19 @@ final class MovieCastCollectionViewCell: UICollectionViewCell {
     
     var castImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 25
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
     var castNameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.font = .boldSystemFont(ofSize: 9)
-        nameLabel.textColor = .white
+        nameLabel.font = .boldSystemFont(ofSize: 12)
         return nameLabel
     }()
     
     var castCharacterLabel: UILabel = {
         let characterLabel = UILabel()
-        characterLabel.font = .systemFont(ofSize: 9)
-        characterLabel.textColor = .lightText
+        characterLabel.font = .systemFont(ofSize: 10)
         return characterLabel
     }()
     
@@ -44,13 +40,13 @@ final class MovieCastCollectionViewCell: UICollectionViewCell {
             castImageView.topAnchor.constraint(equalTo: self.topAnchor),
             castImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             castImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            castImageView.heightAnchor.constraint(equalToConstant: self.frame.height),
+            castImageView.heightAnchor.constraint(equalToConstant: self.frame.height / 1.4),
 
             castNameLabel.topAnchor.constraint(equalTo: castImageView.bottomAnchor, constant: 10),
             castNameLabel.centerXAnchor.constraint(equalTo: castImageView.centerXAnchor),
             castNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             castNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            
+
             castCharacterLabel.topAnchor.constraint(equalTo: castNameLabel.bottomAnchor, constant: 2),
             castCharacterLabel.centerXAnchor.constraint(equalTo: castImageView.centerXAnchor),
             castCharacterLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
