@@ -1,4 +1,4 @@
 # TMBD
 
-First project
+MVP with TheMovieDataBase API
 
